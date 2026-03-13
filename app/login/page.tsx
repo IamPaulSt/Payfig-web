@@ -26,7 +26,7 @@ export default function LoginPage() {
       Cookies.set('payfig_token', jwt, { expires: 7 });
       
       router.push('/dashboard');
-    } catch (err: any) {
+    } catch {
       setError('Credenciales inválidas o error de conexión');
     } finally {
       setLoading(false);

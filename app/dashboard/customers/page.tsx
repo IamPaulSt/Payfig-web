@@ -12,9 +12,7 @@ import {
   Loader2, 
   X,
   Plus,
-  ArrowLeft,
-  ChevronRight,
-  MessageSquare
+  ChevronRight
 } from 'lucide-react';
 import Link from 'next/link';
 

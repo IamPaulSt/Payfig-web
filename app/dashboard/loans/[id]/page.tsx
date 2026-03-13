@@ -1,21 +1,15 @@
 'use client';
 
-import { useEffect, useState, use } from 'react';
+import { useEffect, useState, use, useCallback } from 'react';
 import { Loan, CollectionAgendaItem } from '@/types';
 import api from '@/lib/api';
 import { 
   ArrowLeft, 
-  Wallet, 
   Calendar, 
   Loader2, 
   Clock,
   CheckCircle2,
   Phone,
-  User,
-  ExternalLink,
-  DollarSign,
-  TrendingUp,
-  RefreshCcw,
   AlertCircle
 } from 'lucide-react';
 import Link from 'next/link';
@@ -29,7 +23,7 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState<CollectionAgendaItem | null>(null);
 
-  const fetchLoan = async () => {
+  const fetchLoan = useCallback(async () => {
     try {
       const response = await api.get(`/loans/${id}`);
       setLoan(response.data);
@@ -38,17 +32,17 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchLoan();
-  }, [id]);
+  }, [fetchLoan]);
 
   useEffect(() => {
     document.title = "Detalle de Crédito | PayFig";
   }, []);
 
-  const handleOpenPayment = (inst: any) => {
+  const handleOpenPayment = (inst: { installmentNumber: number; amount: number; interestAmount: number; dueDate: string }) => {
     if (!loan) return;
 
     // Calculamos la liquidación total para el modal

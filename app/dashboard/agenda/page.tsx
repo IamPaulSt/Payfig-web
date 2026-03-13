@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import api from '@/lib/api';
 import { CollectionAgendaItem } from '@/types';
 import { 
@@ -8,16 +8,10 @@ import {
   ChevronDown, 
   Phone, 
   Loader2, 
-  CheckCircle2,
-  ExternalLink,
-  ChevronLeft,
-  ChevronRight,
-  TrendingUp,
-  Clock
+  CheckCircle2
 } from 'lucide-react';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameDay, addMonths, subMonths } from 'date-fns';
+import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import Link from 'next/link';
 import PaymentModal from '../components/PaymentModal';
 
 export default function AgendaPage() {
@@ -37,7 +31,7 @@ export default function AgendaPage() {
     { n: 'Octubre', v: 10 }, { n: 'Noviembre', v: 11 }, { n: 'Diciembre', v: 12 }
   ];
 
-  const fetchAgenda = async () => {
+  const fetchAgenda = useCallback(async () => {
     setLoading(true);
     try {
       let endpoint = '/loans/today-agenda';
@@ -56,12 +50,15 @@ export default function AgendaPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [view, selectedMonth, selectedYear]);
 
   useEffect(() => {
     fetchAgenda();
+  }, [fetchAgenda]);
+
+  useEffect(() => {
     document.title = "Agenda | PayFig";
-  }, [view, selectedMonth, selectedYear]);
+  }, []);
 
   const sortedItems = [...items].sort((a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime());
 

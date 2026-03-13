@@ -10,11 +10,8 @@ import {
   AlertTriangle, 
   LogOut,
   ChevronRight,
-  Menu,
-  X
 } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
 
 export default function DashboardLayout({
   children,
@@ -23,7 +20,6 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     Cookies.remove('payfig_token');
@@ -38,14 +34,6 @@ export default function DashboardLayout({
     { title: 'Mora', icon: AlertTriangle, href: '/dashboard/overdue' },
   ];
 
-  const currentPage = menuItems.find(i => i.href === pathname);
-  let title = currentPage?.title || 'Panel de Control';
-
-  // Manejo de sub-rutas para el título
-  if (!currentPage) {
-    if (pathname.startsWith('/dashboard/customers/')) title = 'Detalle de Cliente';
-    if (pathname.startsWith('/dashboard/loans/')) title = 'Detalle de Crédito';
-  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 flex flex-col md:flex-row">

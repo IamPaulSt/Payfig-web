@@ -6,10 +6,7 @@ import {
   CheckCircle2, 
   Loader2, 
   DollarSign, 
-  HelpCircle,
-  TrendingDown,
-  Calendar,
-  ChevronDown
+  TrendingDown
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';

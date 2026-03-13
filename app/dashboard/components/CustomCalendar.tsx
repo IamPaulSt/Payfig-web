@@ -3,8 +3,7 @@
 import { useState } from 'react';
 import { 
   ChevronLeft, 
-  ChevronRight, 
-  X 
+  ChevronRight 
 } from 'lucide-react';
 import { 
   format, 
@@ -16,7 +15,6 @@ import {
   endOfWeek, 
   isSameMonth, 
   isSameDay, 
-  addDays, 
   eachDayOfInterval 
 } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -76,9 +74,6 @@ export default function CustomCalendar({ selectedDate, onSelect, onClose }: Cust
     const startDate = startOfWeek(monthStart);
     const endDate = endOfWeek(monthEnd);
 
-    const rows = [];
-    let days = [];
-    let day = startDate;
 
     const allDays = eachDayOfInterval({ start: startDate, end: endDate });
 

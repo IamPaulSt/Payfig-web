@@ -1,12 +1,10 @@
 'use client';
 
-import { useEffect, useState, use } from 'react';
+import { useEffect, useState, use, useCallback } from 'react';
 import { Loan, Customer, CollectionAgendaItem, PaymentFrequency } from '@/types';
 import api from '@/lib/api';
 import { 
   ArrowLeft, 
-  Wallet, 
-  Calendar, 
   Loader2, 
   ChevronDown, 
   ChevronUp,
@@ -29,7 +27,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
   const [expandedLoan, setExpandedLoan] = useState<number | null>(null);
   const [selectedItem, setSelectedItem] = useState<CollectionAgendaItem | null>(null);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const [customerRes, loansRes] = await Promise.all([
         api.get(`/customers/${id}`),
@@ -42,17 +40,17 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchData();
-  }, [id]);
+  }, [fetchData]);
 
   useEffect(() => {
     document.title = "Perfil de Cliente | PayFig";
   }, []);
 
-  const handleOpenPayment = (loan: Loan, inst: any) => {
+  const handleOpenPayment = (loan: Loan, inst: { installmentNumber: number; amount: number; interestAmount: number; dueDate: string }) => {
     const futureCapital = loan.installments
       ?.filter(i => i.status === 'PENDING' && i.installmentNumber > inst.installmentNumber)
       .reduce((acc, i) => acc + (i.amount - i.interestAmount), 0) || 0;

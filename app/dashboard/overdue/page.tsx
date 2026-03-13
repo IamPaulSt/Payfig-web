@@ -6,11 +6,9 @@ import { OverdueReportItem } from '@/types';
 import { 
   AlertTriangle, 
   Phone, 
-  Calendar,
-  MessageSquare,
   Loader2,
   Clock,
-  ExternalLink
+  Check
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -106,7 +104,7 @@ export default function OverdueReportPage() {
         )) : (
           <div className="bg-slate-900 border border-dashed border-slate-800 rounded-3xl p-12 text-center">
             <div className="bg-slate-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckIcon className="text-emerald-500 w-8 h-8" />
+              <Check className="text-emerald-500 w-8 h-8" />
             </div>
             <h3 className="text-xl font-bold text-white mb-1">¡Sin Mora!</h3>
             <p className="text-slate-500 text-sm">Todo está al día por el momento.</p>
@@ -117,20 +115,3 @@ export default function OverdueReportPage() {
   );
 }
 
-function CheckIcon(props: any) {
-  return (
-    <svg 
-      {...props}
-      xmlns="http://www.w3.org/2000/svg" 
-      width="24" height="24" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="3" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  );
-}
