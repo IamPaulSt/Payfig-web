@@ -1,0 +1,17 @@
+{
+  "name": "PayFig - Control de Créditos",
+  "short_name": "PayFig",
+  "description": "Sistema premium para la gestión de préstamos y recaudos.",
+  "start_url": "/dashboard",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -15,6 +15,15 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "PayFig | Gestión de Créditos",
   description: "Plataforma profesional para la administración de préstamos y cobros.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "PayFig",
+  },
+  icons: {
+    apple: "/icon-512x512.png",
+  },
 };
 
 export const viewport = {
