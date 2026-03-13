@@ -13,6 +13,7 @@ import {
   Clock,
   ArrowRight,
   DollarSign,
+  CircleDollarSign,
   Wallet,
   TrendingUp
 } from 'lucide-react';
@@ -60,7 +61,7 @@ export default function SummaryPage() {
     <div className="space-y-6">
       
       {/* KPIs de Resumen */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {/* Money in the street */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl relative overflow-hidden group">
           <div className="bg-emerald-500/10 text-emerald-500 w-8 h-8 rounded-lg flex items-center justify-center mb-2">
@@ -69,6 +70,17 @@ export default function SummaryPage() {
           <p className="text-slate-400 text-[8px] font-black uppercase tracking-wider">Por Recaudar</p>
           <p className="text-xl font-black text-white mt-0.5">
             ${(summary?.moneyInTheStreet || 0).toLocaleString('es-CO')}
+          </p>
+        </div>
+
+        {/* Total Lent */}
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl relative overflow-hidden group">
+          <div className="bg-indigo-500/10 text-indigo-500 w-8 h-8 rounded-lg flex items-center justify-center mb-2">
+            <CircleDollarSign className="w-4 h-4" />
+          </div>
+          <p className="text-slate-400 text-[8px] font-black uppercase tracking-wider">Total Prestado</p>
+          <p className="text-xl font-black text-white mt-0.5">
+            ${(summary?.totalLent || 0).toLocaleString('es-CO')}
           </p>
         </div>
 
@@ -118,7 +130,7 @@ export default function SummaryPage() {
           today.setHours(0,0,0,0);
 
           if (isBefore(dueDate, today)) {
-            label = "ATRASADO";
+            label = "EN MORA";
             badgeClass = "bg-red-500/10 text-red-500 border-red-500/20";
             icon = <AlertCircle className="w-3.5 h-3.5" />;
           } else if (isToday(dueDate)) {
@@ -167,10 +179,10 @@ export default function SummaryPage() {
                   onClick={() => setSelectedItem(item)}
                   className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-2xl transition-all shadow-lg shadow-indigo-500/10 active:scale-95 flex items-center justify-center gap-2 text-sm"
                 >
-                  <CheckCircle2 className="w-4 h-4" /> Cobrar
+                  <CheckCircle2 className="w-4 h-4" /> Pagar
                 </button>
                 <Link 
-                  href={`/dashboard/customers/${item.loanId}`}
+                  href={`/dashboard/loans/${item.loanId}`}
                   className="w-12 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-2xl transition-all flex items-center justify-center active:scale-95 border border-slate-700"
                 >
                   <ArrowRight className="w-5 h-5" />

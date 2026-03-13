@@ -12,7 +12,8 @@ import {
   CheckCircle2,
   Phone,
   MapPin,
-  CircleDollarSign
+  CircleDollarSign,
+  AlertCircle
 } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
@@ -59,13 +60,15 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
 
     const agendaItem: CollectionAgendaItem = {
       loanId: loan.id,
+      customerId: customer?.id || 0,
       customerName: customer?.name || '',
       customerPhone: customer?.phone || '',
       installmentNumber: inst.installmentNumber,
       amountToCollect: inst.amount,
       interestAmount: inst.interestAmount,
       totalLiquidation: liquidation,
-      dueDate: inst.dueDate
+      dueDate: inst.dueDate,
+      isOverdue: new Date(inst.dueDate) < new Date(new Date().setHours(0,0,0,0))
     };
     setSelectedItem(agendaItem);
   };
@@ -96,6 +99,8 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
     );
   }
 
+  const isOverdue = loans.some(l => l.status === 'OVERDUE');
+
   return (
     <div className="space-y-4 pb-10">
       {/* Header compact info */}
@@ -108,7 +113,14 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div className="flex-1">
-            <h3 className="text-lg font-black text-white italic uppercase tracking-tight leading-none">{customer.name}</h3>
+            <div className="flex items-center gap-2">
+              <h3 className="text-lg font-black text-white italic uppercase tracking-tight leading-none">{customer.name}</h3>
+              {isOverdue && (
+                <div className="bg-red-500/10 text-red-500 border border-red-500/20 px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest flex items-center gap-1 animate-pulse">
+                  <AlertCircle className="w-2.5 h-2.5" /> En Mora
+                </div>
+              )}
+            </div>
             <div className="flex flex-wrap gap-3 mt-1">
               <div className="flex items-center gap-1.5 text-[8.5px] text-slate-500 font-bold uppercase tracking-wide">
                 <Phone className="w-3 h-3" /> {customer.phone}
@@ -149,8 +161,14 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                 
                 <div className="flex items-center justify-between md:justify-end gap-6">
                   <div className="text-right">
-                    <p className={`text-[10px] font-black italic ${loan.status === 'ACTIVE' ? 'text-emerald-400' : 'text-slate-500'}`}>{loan.status === 'ACTIVE' ? 'ACTIVO' : 'PAGADO'}</p>
-                    <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">{format(new Date(loan.startDate), "dd MMM yyyy", { locale: es })}</p>
+                    <p className={`text-[10px] font-black italic ${
+                      loan.status === 'ACTIVE' ? 'text-emerald-400' : 
+                      loan.status === 'OVERDUE' ? 'text-rose-500' : 'text-slate-500'
+                    }`}>
+                      {loan.status === 'ACTIVE' ? 'ACTIVO' : 
+                       loan.status === 'OVERDUE' ? 'EN MORA' : 'PAGADO'}
+                    </p>
+                    <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">{format(new Date(loan.startDate + 'T00:00:00'), "dd MMM yyyy", { locale: es })}</p>
                   </div>
                   {expandedLoan === loan.id ? <ChevronUp className="w-4 h-4 text-slate-500" /> : <ChevronDown className="w-4 h-4 text-slate-500" />}
                 </div>
@@ -166,7 +184,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                           <span className="text-[10px] font-black text-slate-600">#{inst.installmentNumber}</span>
                           <div>
                             <p className="text-xs font-black text-white">${inst.amount.toLocaleString('es-CO')}</p>
-                            <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">{format(new Date(inst.dueDate), "dd MMMM yyyy", { locale: es })}</p>
+                            <p className="text-[9px] text-slate-500 font-bold uppercase tracking-tighter">{format(new Date(inst.dueDate + 'T00:00:00'), "dd MMMM yyyy", { locale: es })}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
@@ -179,7 +197,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
                               onClick={() => handleOpenPayment(loan, inst)}
                               className="text-indigo-400 text-[9px] font-black uppercase tracking-widest bg-slate-800 px-3 py-1 rounded-full border border-indigo-500/20 hover:bg-indigo-600 hover:text-white transition-all flex items-center gap-1.5"
                             >
-                              <Clock className="w-3 h-3" /> Cobrar
+                              <Clock className="w-3 h-3" /> Pagar
                             </button>
                           )}
                         </div>

@@ -43,11 +43,13 @@ export interface Loan {
 export interface CashSummary {
   moneyInTheStreet: number;
   monthlyCollections: number;
+  totalLent: number;
   activeLoansCount: number;
 }
 
 export interface OverdueReportItem {
   loanId: number;
+  customerId: number;
   customerName: string;
   customerPhone: string;
   installmentNumber: number;
@@ -57,6 +59,7 @@ export interface OverdueReportItem {
 }
 export interface CollectionAgendaItem {
   loanId: number;
+  customerId: number;
   customerName: string;
   customerPhone: string;
   installmentNumber: number;
@@ -64,6 +67,7 @@ export interface CollectionAgendaItem {
   interestAmount: number;
   totalLiquidation: number;
   dueDate: string;
+  isOverdue: boolean;
 }
 export interface LoanRequest {
   customerId: number;

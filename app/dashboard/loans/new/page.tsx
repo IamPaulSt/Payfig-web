@@ -41,7 +41,7 @@ export default function NewLoanPage() {
   const [frequency, setFrequency] = useState<PaymentFrequency>('MONTHLY'); // Default MONTHLY
   const [isFrequencyOpen, setIsFrequencyOpen] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const [startDate, setStartDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [startDate, setStartDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'));
 
   useEffect(() => {
     const fetchCustomers = async () => {
@@ -312,7 +312,7 @@ export default function NewLoanPage() {
               <CustomCalendar 
                 selectedDate={new Date(startDate + 'T12:00:00')}
                 onSelect={(date) => {
-                  setStartDate(date.toISOString().split('T')[0]);
+                  setStartDate(format(date, 'yyyy-MM-dd'));
                   setIsCalendarOpen(false);
                 }}
                 onClose={() => setIsCalendarOpen(false)}

@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import Link from 'next/link';
 
 export default function OverdueReportPage() {
   const [items, setItems] = useState<OverdueReportItem[]>([]);
@@ -66,9 +67,11 @@ export default function OverdueReportPage() {
           >
             <div className="flex justify-between items-start mb-3">
               <div>
-                <h4 className="text-base font-bold text-white group-hover:text-indigo-400 transition-colors uppercase tracking-tight">
-                  {item.customerName}
-                </h4>
+                <Link href={`/dashboard/customers/${item.customerId}`}>
+                  <h4 className="text-base font-bold text-white group-hover:text-indigo-400 transition-colors uppercase tracking-tight">
+                    {item.customerName}
+                  </h4>
+                </Link>
                 <div className="flex items-center gap-1.5 text-slate-500 text-[10px] mt-0.5">
                   <Phone className="w-2.5 h-2.5" /> {item.customerPhone}
                 </div>
@@ -90,7 +93,7 @@ export default function OverdueReportPage() {
               <div className="bg-slate-800/50 p-2.5 rounded-xl border border-slate-800">
                 <p className="text-[8.5px] text-slate-500 font-black uppercase tracking-widest mb-1">Venció</p>
                 <p className="text-[11px] font-bold text-slate-300">
-                  {format(new Date(item.dueDate), "dd MMM", { locale: es })}
+                  {format(new Date(item.dueDate + 'T00:00:00'), "dd MMM", { locale: es })}
                 </p>
               </div>
             </div>

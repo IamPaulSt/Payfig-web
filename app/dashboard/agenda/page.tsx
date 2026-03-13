@@ -187,13 +187,20 @@ export default function AgendaPage() {
           {filteredItems.map((item) => (
             <div 
               key={`${item.loanId}-${item.installmentNumber}`}
-              className="bg-slate-900 border border-slate-800 rounded-3xl p-5 hover:border-slate-700 transition-all group flex flex-col shadow-lg"
+              className={`bg-slate-900 border ${item.isOverdue ? 'border-red-500/50 shadow-red-500/5' : 'border-slate-800'} rounded-3xl p-5 hover:border-slate-700 transition-all group flex flex-col shadow-lg relative overflow-hidden`}
             >
-              <div className="flex flex-col h-full">
+              <div className="flex flex-col h-full relative z-10">
                 <div className="flex items-start justify-between gap-3 mb-1.5">
                   <h4 className="text-lg font-bold text-white leading-tight pr-4">{item.customerName}</h4>
-                  <div className="bg-indigo-600/10 text-indigo-400 border border-indigo-500/20 px-2.5 py-0.5 rounded-full text-[8.5px] font-black uppercase tracking-widest shrink-0">
-                    Cuota {item.installmentNumber}
+                  <div className="flex items-center gap-2">
+                    <div className="bg-indigo-600/10 text-indigo-400 border border-indigo-500/20 px-2.5 py-0.5 rounded-full text-[8.5px] font-black uppercase tracking-widest shrink-0">
+                      Cuota {item.installmentNumber}
+                    </div>
+                    {item.isOverdue && (
+                      <div className="bg-red-500 text-white px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest shrink-0">
+                        Mora
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -209,12 +216,12 @@ export default function AgendaPage() {
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-3 p-2.5 bg-slate-800/40 rounded-xl border border-slate-800/50">
-                    <Calendar className="w-3.5 h-3.5 text-indigo-400" />
+                  <div className={`flex items-center gap-3 p-2.5 rounded-xl border ${item.isOverdue ? 'bg-red-500/5 border-red-500/20' : 'bg-slate-800/40 border-slate-800/50'}`}>
+                    <Calendar className={`w-3.5 h-3.5 ${item.isOverdue ? 'text-red-500' : 'text-indigo-400'}`} />
                     <div>
                       <p className="text-[8px] text-slate-500 uppercase font-black tracking-widest">Vencimiento</p>
-                      <p className="text-xs font-bold text-slate-300">
-                        {format(new Date(item.dueDate), "d MMM", { locale: es })}
+                      <p className="text-xs font-bold text-slate-300 uppercase">
+                        {format(new Date(item.dueDate + 'T00:00:00'), "d MMM", { locale: es })}
                       </p>
                     </div>
                   </div>
@@ -224,7 +231,7 @@ export default function AgendaPage() {
                       onClick={() => setSelectedItem(item)}
                       className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-black py-3 rounded-2xl transition-all shadow-lg shadow-indigo-500/10 active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-widest"
                     >
-                      Realizar Cobro
+                      Realizar Pago
                     </button>
                   </div>
                 </div>

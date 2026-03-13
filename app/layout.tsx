@@ -17,6 +17,15 @@ export const metadata: Metadata = {
   description: "Plataforma profesional para la administración de préstamos y cobros.",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+  themeColor: '#020617', // slate-950
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

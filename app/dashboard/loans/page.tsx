@@ -180,16 +180,18 @@ export default function LoansPage() {
 
                 <div className="space-y-1.5 mb-5">
                   <div className="bg-slate-800/40 p-2.5 rounded-xl border border-slate-800/50 flex items-center justify-between">
-                    <p className="text-[8.5px] text-slate-500 uppercase font-black tracking-widest flex items-center gap-1">
-                      <DollarSign className="w-2.5 h-2.5" /> Total
-                    </p>
-                    <p className="text-xs font-black text-white">${loan.totalToPay.toLocaleString('es-CO')}</p>
+                    <div className="flex items-center gap-1.5">
+                      <DollarSign className="w-3 h-3 text-indigo-400" />
+                      <p className="text-[9px] text-slate-500 uppercase font-black tracking-widest mt-0.5">Prestado</p>
+                    </div>
+                    <p className="text-sm font-black text-white">${loan.amount.toLocaleString('es-CO')}</p>
                   </div>
                   <div className="bg-slate-800/40 p-2.5 rounded-xl border border-slate-800/50 flex items-center justify-between">
-                    <p className="text-[8.5px] text-slate-500 uppercase font-black tracking-widest flex items-center gap-1">
-                      <TrendingUp className="w-2.5 h-2.5" /> Tasa
-                    </p>
-                    <p className="text-xs font-black text-emerald-400">{loan.interestRate}%</p>
+                    <div className="flex items-center gap-1.5">
+                      <TrendingUp className="w-3 h-3 text-emerald-400" />
+                      <p className="text-[9px] text-slate-500 uppercase font-black tracking-widest mt-0.5">Tasa</p>
+                    </div>
+                    <p className="text-sm font-black text-emerald-400">{loan.interestRate}%</p>
                   </div>
                 </div>
 

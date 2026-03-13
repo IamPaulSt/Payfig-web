@@ -54,13 +54,15 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
 
     const agendaItem: CollectionAgendaItem = {
       loanId: loan.id,
+      customerId: loan.customer.id,
       customerName: loan.customer.name,
       customerPhone: loan.customer.phone,
       installmentNumber: inst.installmentNumber,
       amountToCollect: inst.amount,
       interestAmount: inst.interestAmount,
       totalLiquidation: liquidation,
-      dueDate: inst.dueDate
+      dueDate: inst.dueDate,
+      isOverdue: new Date(inst.dueDate) < new Date(new Date().setHours(0,0,0,0))
     };
     setSelectedItem(agendaItem);
   };
@@ -156,7 +158,7 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
                    </div>
                    <div className="flex items-center justify-between">
                       <span className="text-[9px] text-slate-500 font-black uppercase">Fecha Inicio</span>
-                      <span className="text-xs font-bold text-slate-300 uppercase">{format(new Date(loan.startDate), "dd MMM yyyy", { locale: es })}</span>
+                      <span className="text-xs font-bold text-slate-300 uppercase">{format(new Date(loan.startDate + 'T00:00:00'), "dd MMM yyyy", { locale: es })}</span>
                    </div>
                 </div>
               </div>
@@ -198,7 +200,7 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
                       <div className="flex items-center gap-1.5 mt-0.5">
                         <Calendar className="w-2.5 h-2.5 text-slate-500" />
                         <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">
-                          {format(new Date(inst.dueDate), "dd MMM yyyy", { locale: es })}
+                          {format(new Date(inst.dueDate + 'T00:00:00'), "dd MMM yyyy", { locale: es })}
                         </p>
                       </div>
                     </div>
@@ -218,7 +220,7 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
                            </div>
                          ) : (
                            <div className="bg-slate-800 text-indigo-400 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5 group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                              <Clock className="w-3.5 h-3.5" /> Cobrar
+                              <Clock className="w-3.5 h-3.5" /> Pagar
                            </div>
                          );
                        })()

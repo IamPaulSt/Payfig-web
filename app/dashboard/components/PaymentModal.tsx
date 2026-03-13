@@ -24,7 +24,7 @@ export default function PaymentModal({ item, onClose, onSuccess }: PaymentModalP
   const [amount, setAmount] = useState<string>('');
   const [type, setType] = useState<PaymentType>('FULL_INSTALLMENT');
   const [excessTarget, setExcessTarget] = useState<ExcessTarget>('NEXT');
-  const [paymentDate, setPaymentDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [paymentDate, setPaymentDate] = useState<string>(format(new Date(), 'yyyy-MM-dd'));
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -33,7 +33,7 @@ export default function PaymentModal({ item, onClose, onSuccess }: PaymentModalP
     if (item) {
       setAmount(item.amountToCollect.toString());
       setSuccess(false);
-      setPaymentDate(new Date().toISOString().split('T')[0]);
+      setPaymentDate(format(new Date(), 'yyyy-MM-dd'));
     }
   }, [item]);
 
@@ -46,7 +46,7 @@ export default function PaymentModal({ item, onClose, onSuccess }: PaymentModalP
     setSuccess(false);
     if (item) {
       setAmount(item.amountToCollect.toString());
-      setPaymentDate(new Date().toISOString().split('T')[0]);
+      setPaymentDate(format(new Date(), 'yyyy-MM-dd'));
     }
     onClose();
   };
@@ -164,7 +164,7 @@ export default function PaymentModal({ item, onClose, onSuccess }: PaymentModalP
                     <CustomCalendar 
                       selectedDate={new Date(paymentDate + 'T12:00:00')}
                       onSelect={(date) => {
-                        setPaymentDate(date.toISOString().split('T')[0]);
+                        setPaymentDate(format(date, 'yyyy-MM-dd'));
                         setIsCalendarOpen(false);
                       }}
                       onClose={() => setIsCalendarOpen(false)}

@@ -36,7 +36,7 @@ export default function DashboardLayout({
 
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 flex flex-col md:flex-row">
+    <div className="min-h-screen min-h-[100dvh] bg-slate-950 text-slate-200 flex flex-col md:flex-row">
       
       {/* SIDEBAR (Desktop) */}
       <aside className="hidden md:flex w-48 bg-slate-900 border-r border-slate-800 flex-col sticky top-0 h-screen shadow-xl">
@@ -105,7 +105,7 @@ export default function DashboardLayout({
       </main>
 
       {/* BOTTOM NAVIGATION (Mobile Only) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 px-2 py-3 flex items-center justify-around z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.5)]">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur-lg border-t border-slate-800 px-2 pt-3 pb-[calc(12px+env(safe-area-inset-bottom,0px))] flex items-center justify-around z-50 shadow-[0_-10px_20px_rgba(0,0,0,0.5)] transform-gpu">
         {menuItems.map((item) => {
           const isActive = pathname === item.href;
           return (
