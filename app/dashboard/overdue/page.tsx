@@ -37,7 +37,7 @@ export default function OverdueReportPage() {
   if (loading) {
     return (
       <div className="h-[60vh] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+        <Loader2 className="w-8 h-8 text-army-primary animate-spin" />
       </div>
     );
   }
@@ -48,8 +48,8 @@ export default function OverdueReportPage() {
       {/* Banner de Estado de Mora */}
       <div className="bg-red-500/10 border border-red-500/20 rounded-3xl p-4 relative overflow-hidden">
         <div className="relative z-10 flex items-center gap-4">
-          <div className="bg-red-500 p-2.5 rounded-xl shadow-lg shadow-red-500/20">
-            <AlertTriangle className="text-white w-5 h-5" />
+          <div className="bg-red-600 text-white p-2.5 rounded-xl shadow-lg shadow-red-600/20">
+            <AlertTriangle className="w-5 h-5" />
           </div>
           <div>
             <h3 className="text-lg font-black text-white italic uppercase tracking-tight">Lista de Mora</h3>
@@ -63,16 +63,16 @@ export default function OverdueReportPage() {
         {items.length > 0 ? items.map((item, index) => (
           <div 
             key={index} 
-            className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg group active:bg-slate-850 transition-all border-l-4 border-l-red-500"
+            className="bg-army-900 border border-army-800 rounded-2xl p-4 shadow-lg group active:bg-army-800 transition-all border-l-4 border-l-red-500"
           >
             <div className="flex justify-between items-start mb-3">
               <div>
                 <Link href={`/dashboard/customers/${item.customerId}`}>
-                  <h4 className="text-base font-bold text-white group-hover:text-indigo-400 transition-colors uppercase tracking-tight">
+                  <h4 className="text-base font-bold text-white group-hover:text-army-primary transition-colors uppercase tracking-tight">
                     {item.customerName}
                   </h4>
                 </Link>
-                <div className="flex items-center gap-1.5 text-slate-500 text-[10px] mt-0.5">
+                <div className="flex items-center gap-1.5 text-army-accent/60 text-[10px] mt-0.5">
                   <Phone className="w-2.5 h-2.5" /> {item.customerPhone}
                 </div>
               </div>
@@ -84,33 +84,33 @@ export default function OverdueReportPage() {
             </div>
 
             <div className="grid grid-cols-2 gap-2 mb-4">
-              <div className="bg-slate-800/50 p-2.5 rounded-xl border border-slate-800">
-                <p className="text-[8.5px] text-slate-500 font-black uppercase tracking-widest mb-1">Monto</p>
+              <div className="bg-army-800/50 p-2.5 rounded-xl border border-army-800">
+                <p className="text-[8.5px] text-army-accent/60 font-black uppercase tracking-widest mb-1">Monto</p>
                 <p className="text-base font-black text-white">
                   ${item.overdueAmount.toLocaleString('es-CO')}
                 </p>
               </div>
-              <div className="bg-slate-800/50 p-2.5 rounded-xl border border-slate-800">
-                <p className="text-[8.5px] text-slate-500 font-black uppercase tracking-widest mb-1">Venció</p>
-                <p className="text-[11px] font-bold text-slate-300">
+              <div className="bg-army-800/50 p-2.5 rounded-xl border border-army-800">
+                <p className="text-[8.5px] text-army-accent/60 font-black uppercase tracking-widest mb-1">Venció</p>
+                <p className="text-[11px] font-bold text-army-accent/60">
                   {format(new Date(item.dueDate + 'T00:00:00'), "dd MMM", { locale: es })}
                 </p>
               </div>
             </div>
 
             <div className="flex gap-2">
-              <div className="flex-1 bg-slate-800/50 text-slate-500 text-[9px] font-black uppercase tracking-widest py-2.5 rounded-xl flex items-center justify-center gap-2">
+              <div className="flex-1 bg-army-800/50 text-army-accent/60 text-[9px] font-black uppercase tracking-widest py-2.5 rounded-xl flex items-center justify-center gap-2">
                 <Clock className="w-3.5 h-3.5" /> Pendiente de Cobro
               </div>
             </div>
           </div>
         )) : (
-          <div className="bg-slate-900 border border-dashed border-slate-800 rounded-3xl p-12 text-center">
-            <div className="bg-slate-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Check className="text-emerald-500 w-8 h-8" />
+          <div className="bg-army-900 border border-dashed border-army-800 rounded-3xl p-12 text-center">
+            <div className="bg-army-800 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Check className="text-army-accent w-8 h-8" />
             </div>
             <h3 className="text-xl font-bold text-white mb-1">¡Sin Mora!</h3>
-            <p className="text-slate-500 text-sm">Todo está al día por el momento.</p>
+            <p className="text-army-accent/60 text-sm">Todo está al día por el momento.</p>
           </div>
         )}
       </div>

@@ -71,8 +71,8 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
     return (
       <div className="h-[60vh] flex items-center justify-center">
         <div className="relative">
-          <Loader2 className="w-12 h-12 text-indigo-500 animate-spin" />
-          <div className="absolute inset-0 blur-xl bg-indigo-500/20 animate-pulse" />
+          <Loader2 className="w-12 h-12 text-army-primary animate-spin" />
+          <div className="absolute inset-0 blur-xl bg-army-primary/20 animate-pulse" />
         </div>
       </div>
     );
@@ -80,11 +80,11 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
 
   if (!loan) {
     return (
-      <div className="p-12 text-center text-slate-500 bg-slate-900 border border-dashed border-slate-800 rounded-[2.5rem]">
-        <AlertCircle className="w-12 h-12 mx-auto mb-4 text-slate-700" />
+      <div className="p-12 text-center text-army-accent/40 bg-army-900 border border-dashed border-army-800 rounded-[2.5rem]">
+        <AlertCircle className="w-12 h-12 mx-auto mb-4 text-army-800" />
         Crédito no encontrado
         <div className="mt-4">
-          <Link href="/dashboard/loans" className="text-indigo-400 font-bold hover:underline">Volver a créditos</Link>
+          <Link href="/dashboard/loans" className="text-army-primary font-bold hover:underline">Volver a créditos</Link>
         </div>
       </div>
     );
@@ -99,15 +99,15 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
       <div className="flex items-center gap-4">
         <Link 
           href="/dashboard/loans"
-          className="p-2.5 bg-slate-900 border border-slate-800 rounded-xl text-slate-400 hover:text-white transition-all shadow-lg active:scale-95"
+          className="p-2.5 bg-army-900 border border-army-800 rounded-xl text-army-accent/40 hover:text-white transition-all shadow-lg active:scale-95"
         >
           <ArrowLeft className="w-4 h-4" />
         </Link>
         <div>
           <h3 className="text-xl font-black text-white italic uppercase tracking-tight">Detalle de Crédito</h3>
           <div className="flex items-center gap-3">
-            <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest mt-0.5">{loan.customer.name}</p>
-            <div className="flex items-center gap-1.5 text-slate-500 text-[9px] font-bold uppercase tracking-widest mt-0.5">
+            <p className="text-army-accent/60 text-[9px] font-bold uppercase tracking-widest mt-0.5">{loan.customer.name}</p>
+            <div className="flex items-center gap-1.5 text-army-accent/60 text-[9px] font-bold uppercase tracking-widest mt-0.5">
                <Phone className="w-2.5 h-2.5" /> {loan.customer.phone}
             </div>
           </div>
@@ -118,21 +118,21 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
         {/* Left Column: Loan Summary & Stats */}
         <div className="lg:col-span-1 space-y-6">
            {/* Main Stats Card */}
-           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl relative overflow-hidden ring-1 ring-white/5">
+           <div className="bg-army-900 border border-army-800 rounded-3xl p-6 shadow-2xl relative overflow-hidden ring-1 ring-white/5">
               <div className="relative z-10 space-y-6">
                 <div>
-                   <p className="text-[9px] text-slate-500 font-black uppercase tracking-[0.2em] mb-1.5">Monto del Préstamo</p>
+                   <p className="text-[9px] text-army-accent/60 font-black uppercase tracking-[0.2em] mb-1.5">Monto del Préstamo</p>
                    <h2 className="text-3xl font-black text-white italic">${loan.amount.toLocaleString('es-CO')}</h2>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                   <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/30">
-                      <p className="text-[8px] text-slate-500 font-black uppercase tracking-widest mb-1">Tasa Interés</p>
-                      <p className="text-lg font-black text-emerald-400">{loan.interestRate}%</p>
+                   <div className="bg-army-800/50 p-3 rounded-xl border border-army-700/30">
+                      <p className="text-[8px] text-army-accent/60 font-black uppercase tracking-widest mb-1">Tasa Interés</p>
+                      <p className="text-lg font-black text-army-accent">{loan.interestRate}%</p>
                    </div>
-                   <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/30">
-                      <p className="text-[8px] text-slate-500 font-black uppercase tracking-widest mb-1">Frecuencia</p>
-                      <p className="text-lg font-black text-indigo-400">
+                   <div className="bg-army-800/50 p-3 rounded-xl border border-army-700/30">
+                      <p className="text-[8px] text-army-accent/60 font-black uppercase tracking-widest mb-1">Frecuencia</p>
+                      <p className="text-lg font-black text-army-primary">
                         {loan.frequency === 'DAILY' ? 'Día' : loan.frequency === 'WEEKLY' ? 'Sem' : 'Mes'}
                       </p>
                    </div>
@@ -140,25 +140,25 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
 
                 <div className="space-y-1.5">
                    <div className="flex justify-between items-end">
-                      <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest">Progreso de Pago</p>
+                      <p className="text-[9px] text-army-accent/60 font-black uppercase tracking-widest">Progreso de Pago</p>
                       <p className="text-[10px] font-black text-white">{paidInstallments} / {loan.installmentsCount}</p>
                    </div>
-                   <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden border border-slate-700/50">
+                   <div className="h-1.5 w-full bg-army-800 rounded-full overflow-hidden border border-army-700/50">
                       <div 
-                        className="h-full bg-indigo-600 shadow-[0_0_10px_rgba(79,70,229,0.5)] transition-all duration-1000"
+                        className="h-full bg-army-primary shadow-[0_0_10px_rgba(96,108,56,0.5)] transition-all duration-1000"
                         style={{ width: `${progress}%` }}
                       ></div>
                    </div>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800 space-y-3">
+                <div className="pt-4 border-t border-army-800 space-y-3">
                    <div className="flex items-center justify-between">
-                      <span className="text-[9px] text-slate-500 font-black uppercase">Total a Recaudar</span>
+                      <span className="text-[9px] text-army-accent/60 font-black uppercase">Total a Recaudar</span>
                       <span className="text-base font-black text-white">${loan.totalToPay.toLocaleString('es-CO')}</span>
                    </div>
                    <div className="flex items-center justify-between">
-                      <span className="text-[9px] text-slate-500 font-black uppercase">Fecha Inicio</span>
-                      <span className="text-xs font-bold text-slate-300 uppercase">{format(new Date(loan.startDate + 'T00:00:00'), "dd MMM yyyy", { locale: es })}</span>
+                      <span className="text-[9px] text-army-accent/60 font-black uppercase">Fecha Inicio</span>
+                      <span className="text-xs font-bold text-army-accent/300 uppercase">{format(new Date(loan.startDate + 'T00:00:00'), "dd MMM yyyy", { locale: es })}</span>
                    </div>
                 </div>
               </div>
@@ -170,7 +170,7 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
         <div className="lg:col-span-2 space-y-4">
            <div className="flex items-center justify-between px-2 mb-2">
               <h4 className="text-lg font-black text-white italic uppercase">Plan de Pagos</h4>
-              <div className="bg-slate-800 border border-slate-700 px-3 py-1 rounded-full text-[9px] font-black text-slate-400 uppercase tracking-widest">
+              <div className="bg-army-800 border border-army-700 px-3 py-1 rounded-full text-[9px] font-black text-army-accent/40 uppercase tracking-widest">
                 Detalle de Cuotas
               </div>
            </div>
@@ -180,26 +180,26 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
                 <div 
                   key={inst.id}
                   onClick={() => inst.status === 'PENDING' && handleOpenPayment(inst)}
-                  className={`bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between group transition-all ring-1 ring-white/5 shadow-lg ${
-                    inst.status === 'PENDING' ? 'cursor-pointer hover:border-slate-600 hover:bg-slate-850 active:scale-[0.99]' : 'opacity-70'
+                  className={`bg-army-900 border border-army-800 rounded-2xl p-4 flex items-center justify-between group transition-all ring-1 ring-white/5 shadow-lg ${
+                    inst.status === 'PENDING' ? 'cursor-pointer hover:border-army-accent shadow-army-primary/5 hover:bg-army-800 active:scale-[0.99]' : 'opacity-70'
                   }`}
                 >
                   <div className="flex items-center gap-4">
                     <div className={`w-8 h-8 rounded-xl flex items-center justify-center text-xs font-black transition-transform group-hover:scale-110 ${
-                      inst.status === 'PAID' ? 'bg-emerald-500/20 text-emerald-500' : 'bg-slate-800 text-slate-500'
+                      inst.status === 'PAID' ? 'bg-army-accent/20 text-army-accent' : 'bg-army-800 text-army-accent/60'
                     }`}>
                       {inst.installmentNumber}
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
                         <p className="text-base font-black text-white">${inst.amount.toLocaleString('es-CO')}</p>
-                        <span className="text-[8px] text-slate-600 font-bold uppercase tracking-tighter">
+                        <span className="text-[8px] text-army-accent/40 font-bold uppercase tracking-tighter group-hover:text-white/60 transition-colors">
                           Cap: ${(inst.amount - inst.interestAmount).toLocaleString()}
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5 mt-0.5">
-                        <Calendar className="w-2.5 h-2.5 text-slate-500" />
-                        <p className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">
+                        <Calendar className="w-2.5 h-2.5 text-army-accent/40 group-hover:text-army-accent transition-colors" />
+                        <p className="text-[9px] text-army-accent/40 font-bold uppercase tracking-widest group-hover:text-army-accent transition-colors">
                           {format(new Date(inst.dueDate + 'T00:00:00'), "dd MMM yyyy", { locale: es })}
                         </p>
                       </div>
@@ -208,7 +208,7 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
 
                   <div className="flex items-center gap-3">
                      {inst.status === 'PAID' ? (
-                        <div className="bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5">
+                        <div className="bg-army-accent/10 text-army-accent border border-army-accent/20 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5">
                            <CheckCircle2 className="w-3.5 h-3.5" /> Pagada
                         </div>
                      ) : (
@@ -219,7 +219,7 @@ export default function LoanDetailPage({ params }: { params: Promise<{ id: strin
                               <AlertCircle className="w-3.5 h-3.5" /> Vencida
                            </div>
                          ) : (
-                           <div className="bg-slate-800 text-indigo-400 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                           <div className="bg-army-800 text-army-primary px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest flex items-center gap-1.5 group-hover:bg-army-primary group-hover:text-white transition-all">
                               <Clock className="w-3.5 h-3.5" /> Pagar
                            </div>
                          );
